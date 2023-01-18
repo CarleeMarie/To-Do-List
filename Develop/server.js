@@ -19,8 +19,8 @@ app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
 
 // API ROUTES
 app.get('/api/notes', (req, res) =>
-  res.json())    //* `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
-);
+  res.json());    //* `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
+
 
 app.post('/api/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/paths.html'))
@@ -33,9 +33,9 @@ app.listen(PORT, () =>
 
 //The following HTML routes should be created:
 
-* `GET /notes` should return the `notes.html` file.
+// * `GET /notes` should return the `notes.html` file.
 
-* `GET *` should return the `index.html` file.
+// * `GET *` should return the `index.html` file.
 
 
 
