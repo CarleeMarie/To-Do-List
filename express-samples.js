@@ -46,7 +46,7 @@ res.json(`${req.method} received`);   // the ${req.method} in this case it the p
 // Fetch request to add a new pet - FETCH SENDS THE REQUEST TO THE EXPRESS.JS SERVER  - specifically sending to the /api/pets location
 const addPet = (pet) => {
     fetch('/api/pets', {
-        method: 'POST',
+        method: 'POST',  // the default method of fetch is GET, so you only need to put this in when the method is something other than GET
         headers: { 'Content-Type ': 'application/json' },
         body: JSON.stringify(pet),
     })

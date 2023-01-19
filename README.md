@@ -20,8 +20,8 @@ SO THAT I can organize my thoughts and keep track of tasks I need to complete
 
 
 To test: 
-  1. Open the Note Taker on localhost:port3001 in your web browser.
-  2. Click on the link to the notes page.
+  1. Open the Note Taker on localhost:3001 in your web browser.
+  2. Click on the "Get Started" button.
   3. Enter a new note title and note text. 
      A save icon should appear in the navigation at the top of the page.
   4. Click on the save icon.

@@ -25,6 +25,14 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
+// const getTerms = async () => {
+//   const result = await fetch('/api/terms', {
+//     method: 'GET',
+//   });
+//   const json = await result.json();
+//   return json;
+// };
+
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
