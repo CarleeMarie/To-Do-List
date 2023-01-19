@@ -33,6 +33,8 @@ let activeNote = {};
 //   return json;
 // };
 
+
+// TODO - does this information go in the db.json file? Or should I import this into the server.js code??
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -48,7 +50,13 @@ const saveNote = (note) =>
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
-  });
+  })
+  // TODO: do I need this??
+    // .then(res) => res.json())
+    // .then((data) => {
+    //   console.log('Successful POST request:', data);
+          // return data;
+    // });
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -131,7 +139,7 @@ const renderNoteList = async (notes) => {
     noteList.forEach((el) => (el.innerHTML = ''));
   }
 
-  let noteListItems = [];
+  let noteListItems = [];  // TODO - do I need this variable somewhere else?
 
   // Returns HTML element with or without a delete button
   const createLi = (text, delBtn = true) => {

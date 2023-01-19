@@ -4,17 +4,22 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const noteData = require('/db/db.json');  
-
+const storeNotes = require('/db/store_notes.js')
+// Helper method for generating unique ids
+const uuid = require('../helpers/uuid');
 const app = express();
 const PORT = 3001;
 
 // TODO: you will need to access the file system (fs), so you can write, retrieve, delete info from the db.json file
 
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true}));
+// Implements Express (middleware) for the parsing of JSON data.
 app.use(express.json());
 
-// this is the middleware and sets up the HTML routes that will be needed
+// Implements Express for the parsing of URL encoded data.
+app.use(express.urlencoded());
+
+
+// The middleware sets up the HTML routes that will be needed
 app.use(express.static('public'));
 app.get('/api/notes', (req, res) =>
      res.sendFile(path.join(__dirname, '/public/')));
@@ -38,9 +43,11 @@ app.get('/api/notes', (req, res) =>
 
 
 // API ROUTES
-// `GET /api/notes` should read the `db.json` file and return all saved notes as JSON:
-app.get('/api/notes', (req, res) =>
-  res.json(noteData));    
+// `GET /api/notes` request for notes - should read the `db.json` file and return all saved notes as JSON:
+app.get('/api/notes', (req, res) => {
+  res.status(200).json(noteData);
+});
+     
 
   // GET route that returns any specific note
 app.get('/api/notes/:title', (req, res) => {
@@ -59,13 +66,69 @@ app.get('/api/notes/:title', (req, res) => {
   });
   
 
+// POST request to add a to-do item
+app.post('/api/notes', (req, res) => {
+  // Log that a POST request was received
+  console.info(`${req.method} request received to add a note`);
 
-app.post('/api/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, 'public/notes.html'))
+  // Prepare a response object to send back to the client
+  let response;
+
+  // Check if there is anything in the response body
+  if (req.body && req.body.product) {
+    response = {
+      status: 'success',
+      data: req.body,
+    };
+    res.json(`Note ${response.data.product} has been added!`);
+  } else {
+    res.json('Note body must at least contain one character.');
+  }
+
+  // Log the response body to the console
+  console.log(req.body);
+});
+
+  
+
   //`POST /api/notes` should receive a new note to save on the request body, add it to the `db.json` file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 );
 
-// activating the middleware
+// res.sendFile(path.join(__dirname, 'public/notes.html'))
+
+app.post('/api/reviews', (req, res) => {
+  // Log that a POST request was received
+  console.info(`${req.method} request received to add a review`);
+
+  // Prepare a response object to send back to the client
+  let response;
+
+  // Check if there is anything in the response body
+  if (req.body && req.body.product) {
+    response = {
+      status: 'success',
+      data: req.body,
+    };
+    res.json(`Review for ${response.data.product} has been added!`);
+  } else {
+    res.json('Request body must at least contain a product name');
+  }
+
+  // Log the response body to the console
+  console.log(req.body);
+});
+
+
+fs.writeFile(`./db/${newNote.product}.json`, noteString, (err) =>
+  err
+    ? console.error(err)
+    : console.log(
+      `Note for ${newNote.product} has been written to JSON file`
+  )
+);
+JSON.stringify(note)
+
+// App (Express) is listening on port 3001
 app.listen(PORT, () =>
   console.log(`Listening on port ${PORT}!`)
 );
