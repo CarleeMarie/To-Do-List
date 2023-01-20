@@ -1,8 +1,0 @@
-// used to store and retrieve notes using the `fs` module.input data
-
-[
-    {
-        "title":"Test Title",
-        "text":"Test text"
-    }
-]
